@@ -5,6 +5,7 @@
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import math
 
 
@@ -307,7 +308,7 @@ class ProjectionLayer (nn.Module):
     def forward(self, x):
         # (Batch , seq_len , d_model) --> (Batch , seq_len , vocab_size)
         # log softmax to avoid overflow and stability
-        return F.log_softmax(self.linear(x), dim=-1)
+        return F.log_softmax(self.proj(x), dim=-1)
 
 
 '''
